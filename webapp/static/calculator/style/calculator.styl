@@ -1,0 +1,39 @@
+body
+  width: 480px
+  margin: auto
+
+
+.calculator
+  cellsPerRow = 4
+  cellWidth = 6em
+  cellMargin = .25em
+
+  width: (cellWidth * cellsPerRow) + (cellMargin * cellsPerRow * cellsPerRow)
+
+  .history
+    fontSize = 1em
+    text-align: right
+    padding: 0em 1em
+    font-size: fontSize
+    min-height: fontSize
+    line-height: fontSize
+
+  .expression
+    fontSize = 2em
+    text-align: right
+    padding: 0em 1em
+    font-size: fontSize
+    min-height: fontSize
+    line-height: fontSize
+
+  .cell
+    width: cellWidth
+    height: 4em
+    line-height: 4em
+    margin: cellMargin
+    padding: 0px
+    display: inline-block
+    /*border: 1px solid #ddd*/
+    text-align: center
+    vertical-align: middle
+    /*background: #eee*/

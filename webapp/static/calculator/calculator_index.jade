@@ -1,0 +1,20 @@
+doctype html
+html(ng-app='app')
+head(lang='en')
+    meta(charset='UTF-8')
+    title Calculator | HarpB
+    link(rel='stylesheet', type='text/css', href='bower_components/semantic/dist/semantic.min.css')
+    link(rel='stylesheet', type='text/css', href='style/calculator.css')
+
+body.ui
+    h1.ui.header
+        | Calculator &nbsp;
+        a.button.ui(href='https://github.com/harpb/calculator')
+            i.github.icon
+            | Source
+    calculator
+
+    script(src='bower_components/angular/angular.js')
+    // Angular App
+    script(src='app/calculator_app.js')
+    script(src='app/directives/calculator_directive.js')

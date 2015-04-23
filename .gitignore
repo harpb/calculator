@@ -1,0 +1,19 @@
+# ECLIPSE
+.project
+.pydevproject
+.idea
+
+# EXTENSIONS
+*.pyc
+*.tar.gz
+
+# TEMPORARY FILES
+_pip_cache
+static_collection
+Thumbs.db
+
+# VIRTUALENV
+build
+pyenv
+
+*.pem

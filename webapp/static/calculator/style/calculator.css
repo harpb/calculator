@@ -1,0 +1,33 @@
+body {
+  width: 480px;
+  margin: auto;
+}
+.calculator {
+  width: 28em;
+}
+.calculator .history {
+  text-align: right;
+  padding: 0em 1em;
+  font-size: 1em;
+  min-height: 1em;
+  line-height: 1em;
+}
+.calculator .expression {
+  text-align: right;
+  padding: 0em 1em;
+  font-size: 2em;
+  min-height: 2em;
+  line-height: 2em;
+}
+.calculator .cell {
+  width: 6em;
+  height: 4em;
+  line-height: 4em;
+  margin: 0.25em;
+  padding: 0px;
+  display: inline-block;
+/*border: 1px solid #ddd*/
+  text-align: center;
+  vertical-align: middle;
+/*background: #eee*/
+}

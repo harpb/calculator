@@ -1,0 +1,33 @@
+//.buttons
+//    .button.ui(ng-click='errorMode()') Error
+//    .button.ui(ng-click='presentationMode()') Presentation
+//    .button.ui(ng-click='editMode()') Edit
+.calculator.segment.ui(ng-class!="{'loading': isEvaluating}")
+    .history {{ result }}
+    .raised.segment.expression.ui(ng-class="{'inverted red': mode == 'error'}") {{ expression }}
+    .purple.cell.button.ui(ng-click!="operator('(')") (
+    .purple.cell.button.ui(ng-click!="operator(')')") )
+    .purple.cell.button.ui(ng-click!="operator('%')") %
+    .purple.cell.button.ui(ng-click!="reset()") {{ resetText }}
+
+    .cell.button.ui(ng-click!="digit('7')") 7
+    .cell.button.ui(ng-click!="digit('8')") 8
+    .cell.button.ui(ng-click!="digit('9')") 9
+    .purple.cell.button.ui(ng-click!="operator('/')") /
+
+    .cell.button.ui(ng-click!="digit('4')") 4
+    .cell.button.ui(ng-click!="digit('5')") 5
+    .cell.button.ui(ng-click!="digit('6')") 6
+    .purple.cell.button.ui(ng-click!="operator('x')") x
+
+    .cell.button.ui(ng-click!="digit('1')") 1
+    .cell.button.ui(ng-click!="digit('2')") 2
+    .cell.button.ui(ng-click!="digit('3')") 3
+    .purple.cell.button.ui(ng-click!="operator('-')") -
+
+    .cell.button.ui(ng-click!="digit('0')") 0
+    .cell.button.ui(ng-click!="digit('.')") .
+    .primary.cell.button.ui(ng-click='evaluate()') =
+    .purple.cell.button.ui(ng-click!="operator('+')") +
+
+

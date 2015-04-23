@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <!-- Standard Meta -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Site Properities -->
+    <title>{% block title %}{% if title or view.title %} {{ title|default:view.title }} | HarpB{% else %} HarpB {% endif %}{%endblock%}</title>
+    {% block icon %}
+    <link rel="shortcut icon" type="image/ico" href="/static/ico/harpb.ico">
+    {% endblock %}
+    {% block css %}
+    <link rel="stylesheet" href="/static/style/semantic/dist/semantic.min.css">
+    {% endblock %}
+</head>
+<body>
+
+    <!-- PAGE STRUCTURE -->
+    {% block header %}
+        <div class="ui no-margin menu">
+            <a class="blue item" name="toggle-sidebar" onclick="toggleSidebar(this)">
+                <i class="align justify icon"></i>
+            </a>
+            {% block logo %}
+            <a class="active item" href="">
+                <i class="home icon"></i> HarpB
+            </a>
+            {% endblock%}
+            {% block header-menu %}{% endblock%}
+            <div class="right menu">
+                {% if user.is_authenticated %}
+                <div class="ui item">
+                    <div class="text">Hi, {{ user.username }} </div>
+                </div>
+                <a class="ui item" href="/user/logout/">
+                    <i class="sign out icon"></i> Logout
+                </a>
+                {% else %}
+                <div class="ui fitted item">
+                    <div class="ui buttons">
+                        <a class="ui green button" href="/user/authenticate/?next={{ request.path }}">
+                            SignUp
+                        </a>
+                        <a class="or"></a>
+                        <a class="ui blue button" href="/user/authenticate/?next={{ request.path }}">
+                            <i class="sign in icon"></i>
+                            Login
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="ui inverted vertical harpb sidebar menu">
+            {% for domain in request.services %}
+            <a class="{% if domain.is_active %} active {% endif %} item" href="{{ domain.absolute_path }}">
+                <i class="{{ domain.ico_class }} icon"></i>
+                {{ domain.title }}
+            </a>
+            {% endfor %}
+        </div>
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+
+    {% block footer %}
+        <footer class="ui basic segment center aligned no-margin">
+            © HarpB 2013-2015
+        </footer>
+    {% endblock %}
+
+</body>
+</html>
