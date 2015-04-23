@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.views.generic.base import TemplateView
+from common.http_exceptions import BadRequest
 
 class JsonResponseMixin(object):
     """
@@ -10,10 +11,11 @@ class JsonResponseMixin(object):
         Returns a JSON response, transforming 'context' to make the payload.
         """
         del context['view']
-        return JsonResponse(
-            self.get_data(context),
-            **response_kwargs
-        )
+        try:
+            return JsonResponse(self.get_data(context), **response_kwargs)
+        except BadRequest, e:
+            response_kwargs['status'] = 400
+            return JsonResponse({'error': e.message}, **response_kwargs)
 
     def get_data(self, context):
         """

@@ -1,2 +1,5 @@
 # Django
 django==1.8
+
+# Testing
+mock==1.0.1
