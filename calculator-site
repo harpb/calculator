@@ -1,0 +1,26 @@
+upstream calculator{
+    server 127.0.0.1:8700;
+}
+server{
+    listen 80;
+    server_name calculator.harpb.com www.calculator.harpb.com;
+    access_log /mnt/logs/nginx-calculator-access.log clf;
+    error_log /mnt/logs/nginx-calculator-error.log;
+
+    location / {
+        proxy_pass http://calculator;
+        proxy_buffering off;
+    }
+
+    location /static {
+        root /home/harpb/calculator/webapp;
+    }
+
+    rewrite  ^/static/(.*)$  /static_collection/$1 last;
+
+    # Path for static files
+    root /home/harpb/calculator-dashboard/webapp/;
+
+    #Specify a charset
+    charset utf-8;
+}
