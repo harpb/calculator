@@ -103,13 +103,14 @@ def build_pyenv():
     run('apt-get update')
     run('apt-get -y upgrade')
     run('apt-get -y dist-upgrade')
+    run('apt-get install libmysqlclient-dev')
+    run('easy_install -U distribute')
+    
     pull_changes()
 #    run('pip install lxml')
     run("rm -rf ./pyenv/build")
-    sudo('apt-get install libmysqlclient-dev')
-    run('easy_install -U distribute')
-    pip('install -r requirements.txt --use-wheel --no-index --find-links=/tmp/wheelhouse --upgrade --exists-action=s')
-    pip('install MySQL-python gevent')
+    pip('install --use-wheel --no-index --find-links=/tmp/wheelhouse MySQL-python gevent')
+    pip('install --use-wheel --no-index --find-links=/tmp/wheelhouse -r requirements.txt --upgrade --exists-action=s')
         
 #===============================================================================
 # Deployment
@@ -128,8 +129,5 @@ def npm_install():
 
 def refresh():
     pull_changes()
-    npm_install()
     django_sync()
-    # REFRESH Processes
     restart_server()
-    #restart_splunk()
