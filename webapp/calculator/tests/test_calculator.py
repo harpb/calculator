@@ -114,5 +114,5 @@ if __name__ == "__main__":
     module_name = 'calculator.tests.test_calculator'
     test_class_name = 'TestCalculator'
     test_methods = ''
-#     test_methods = ['test_evaluate__number']
+    test_methods = ['test_evaluate__passes']
     HarpTestCase.run_tests(module_name, test_class_name, test_methods)
