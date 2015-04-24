@@ -1,6 +1,9 @@
+# ln -s /home/harpb/calculator/calculator-site /etc/nginx/sites-enabled/calculator
+
 upstream calculator{
     server 127.0.0.1:8700;
 }
+
 server{
     listen 80;
     server_name calculator.harpb.com www.calculator.harpb.com;
