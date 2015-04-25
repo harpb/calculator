@@ -8,13 +8,15 @@ head(lang='en')
 
 body.ui
     h1.ui.header
-        | Calculator &nbsp;
+        | Calculator
+        .label.blue.ui Keyboard Support
         a.button.ui(href='https://github.com/harpb/calculator')
             i.github.icon
             | Source
     calculator
 
     script(src='bower_components/angular/angular.js')
+    script(src='bower_components/mousetrap/mousetrap.min.js')
     // Angular App
     script(src='app/calculator_app.js')
     script(src='app/directives/calculator_directive.js')

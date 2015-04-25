@@ -10,12 +10,11 @@
       templateUrl: 'app/directives/calculator.html',
       controller: function($scope, $http) {
         var EDIT, ERROR, PRESENTATION;
+        $scope.expression = '';
+        $scope.resetText = 'AC';
         EDIT = 'edit';
         ERROR = 'error';
         PRESENTATION = 'presentation';
-        $scope.expression = '';
-        $scope.isEvaluating = false;
-        $scope.resetText = 'AC';
         $scope.editMode = function() {
           if ($scope.mode === EDIT) {
             return;
@@ -28,7 +27,6 @@
           return $scope.mode = EDIT;
         };
         $scope.presentationMode = function(answer) {
-          console.debug('presentationMode', arguments);
           if ($scope.mode === PRESENTATION) {
             return;
           }
@@ -56,10 +54,13 @@
           prefix = operator === '%' || operator === '(' || operator === ')' ? '' : ' ';
           return $scope.expression += prefix + operator;
         };
-        $scope.reset = function() {
-          $scope.editMode();
-          return $scope.expression = '';
+        $scope.ce = function() {
+          $scope.expression = $scope.expression.slice(0, -1);
+          if ($scope.expression.slice(-1) === ' ') {
+            return $scope.ce();
+          }
         };
+        $scope.isEvaluating = false;
         $scope.evaluate = function() {
           var params, request;
           $scope.isEvaluating = true;
@@ -76,6 +77,25 @@
             return $scope.errorMode();
           });
         };
+        Mousetrap.bind(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'], function(event, key) {
+          $scope.digit(key);
+          $scope.$apply();
+          return false;
+        });
+        Mousetrap.bind(['+', '-', '*', 'x', '/', '(', ')', '%'], function(event, key) {
+          if (key === '*') {
+            key = 'x';
+          }
+          $scope.operator(key);
+          $scope.$apply();
+          return false;
+        });
+        Mousetrap.bind(['enter'], $scope.evaluate);
+        Mousetrap.bind(['backspace'], function() {
+          $scope.ce();
+          $scope.$apply();
+          return false;
+        });
         return $scope.editMode();
       }
     };

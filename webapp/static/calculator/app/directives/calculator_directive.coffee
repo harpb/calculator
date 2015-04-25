@@ -14,6 +14,7 @@ app.directive 'calculator', ->
         EDIT = 'edit'
         ERROR = 'error'
         PRESENTATION = 'presentation'
+
         $scope.editMode = ->
             if $scope.mode == EDIT
                 return
@@ -25,7 +26,6 @@ app.directive 'calculator', ->
             $scope.mode = EDIT
 
         $scope.presentationMode = (answer)->
-            console.debug 'presentationMode', arguments
             if $scope.mode == PRESENTATION
                 return
 
@@ -55,9 +55,10 @@ app.directive 'calculator', ->
             prefix = if operator in ['%', '(', ')'] then '' else ' '
             $scope.expression += prefix + operator
 
-        $scope.reset = ()->
-            $scope.editMode()
-            $scope.expression = ''
+        $scope.ce = ()->
+            $scope.expression = $scope.expression.slice(0, -1)
+            if $scope.expression.slice(-1) == ' '
+                $scope.ce()
 
         $scope.isEvaluating = false
         $scope.evaluate = ->
@@ -74,5 +75,32 @@ app.directive 'calculator', ->
                     $scope.errorMode()
                 )
 
+        #######################################################################
+        # KeyMap
+        #######################################################################
+        Mousetrap.bind(
+            ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'],
+            (event, key) ->
+                $scope.digit(key)
+                $scope.$apply()
+                return false
+        )
+        Mousetrap.bind(
+            ['+', '-', '*', 'x', '/', '(', ')', '%'],
+            (event, key) ->
+                if key == '*'
+                    key = 'x'
+                $scope.operator(key)
+                $scope.$apply()
+                return false
+        )
+        Mousetrap.bind(
+            ['enter'], $scope.evaluate
+        )
+        Mousetrap.bind(['backspace'], ->
+            $scope.ce()
+            $scope.$apply()
+            return false
+        )
         # Initialize
         $scope.editMode()
