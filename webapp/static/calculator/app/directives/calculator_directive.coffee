@@ -1,17 +1,19 @@
 app = angular.module('app')
+
 app.directive 'calculator', ->
-#    template: 'Name: {{customer.name}} Address: {{customer.address}}'
     scope: {}
     templateUrl: 'app/directives/calculator.html'
     controller: ($scope, $http)->
+
+        $scope.expression = ''
+        $scope.resetText = 'AC'
+
+        #######################################################################
+        # MODES
+        #######################################################################
         EDIT = 'edit'
         ERROR = 'error'
         PRESENTATION = 'presentation'
-
-        $scope.expression = ''
-        $scope.isEvaluating = false
-        $scope.resetText = 'AC'
-
         $scope.editMode = ->
             if $scope.mode == EDIT
                 return
@@ -41,7 +43,9 @@ app.directive 'calculator', ->
             $scope.result = $scope.expression
             $scope.expression = 'Error'
 
-
+        #######################################################################
+        # Expression Modification
+        #######################################################################
         $scope.digit = (digit)->
             $scope.editMode()
             $scope.expression += digit
@@ -55,6 +59,7 @@ app.directive 'calculator', ->
             $scope.editMode()
             $scope.expression = ''
 
+        $scope.isEvaluating = false
         $scope.evaluate = ->
             $scope.isEvaluating = true
             params =
